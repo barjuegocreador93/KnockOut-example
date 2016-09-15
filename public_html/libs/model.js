@@ -7,12 +7,28 @@
 
 (function($,ko){
     var model={
-        nombre:ko.observable("fabio")
+        nombre:ko.observable("fabio"),
+        id:ko.observable("0"),
+        datos: ko.observable([]),
+        check:function(data){
+            this.id(data.id);
+        }
+        
+        
     };
     ko.applyBindings(model);
     $(document).ready(function(){
         $("#btn1").click(function(){
             model.nombre("wow");
+        });
+        $("#btn2").click(function(){
+            $.ajax({
+                url:"data.json",
+                dataType: 'json',          
+                
+            }).done(function(data){
+                model.datos(data.data);
+            });
         });
     });
 }(jQuery,ko))
